@@ -1,3 +1,3 @@
 output "environment_url" {
-  value = module.main_alb.lb_dns_name
+  value = module.main_alb.dns_name
 }

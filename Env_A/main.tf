@@ -7,4 +7,7 @@ module "Env_A" {
     tags = "Env_A"
   }
 
+  asg_min = 0
+  asg_max = 0
+
 }
