@@ -30,7 +30,8 @@ module "main_vpc" {
 }
 
 module "main_sg" {
-  source = "terraform-aws-modules/security-group/aws"
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "4.13.0"
 
   name                = "main-security-group"
   description         = "Security Group for Main service"
@@ -44,6 +45,7 @@ module "main_sg" {
 
 module "main_alb" {
   source  = "terraform-aws-modules/alb/aws"
+  version = "~> 6.0"
 
   name               = "main-alb"
   load_balancer_type = "application"
@@ -73,7 +75,8 @@ module "main_alb" {
 }
 
 module "main_autoscaling" {
-  source = "terraform-aws-modules/autoscaling/aws"
+  source  = "terraform-aws-modules/autoscaling/aws"
+  version = "6.5.2"
   
   name = "main-asg"
   min_size                  = var.environment.asg_min
