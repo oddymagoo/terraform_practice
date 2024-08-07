@@ -63,7 +63,7 @@ module "main_alb" {
     }
   ]
 
-  http_tcp_listeneers = [
+  http_tcp_listeners = [
     {
       port               = 80
       protocol           = "HTTP"
