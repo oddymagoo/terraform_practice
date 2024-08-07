@@ -54,22 +54,22 @@ module "main_alb" {
   subnets         = module.main_vpc.public_subnets
   security_groups = [module.main_sg.security_group_id]
 
-  target_groups = {
+  target_groups = [
     {
       name_prefix = "${var.environment.name}-"
       protocol    = "HTTP"
       port        = 80
       target_type = "instance"
     }
-  }
+  ]
 
-  listeners = {
+  listeners = [
     {
       port               = 80
       protocol           = "HTTP"
       target_group_index = 0
     }
-  }
+  ]
 
   tags = {
     Environment = var.environment.name
