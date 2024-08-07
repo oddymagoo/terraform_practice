@@ -54,14 +54,14 @@ module "main_alb" {
   subnets         = module.main_vpc.public_subnets
   security_groups = [module.main_sg.security_group_id]
 
-  target_groups = {
-    ex-instance = {
+  target_groups = [
+    {
       name_prefix = "${var.environment.name}-"
       protocol    = "HTTP"
       port        = 80
       target_type = "instance"
     }
-  }
+  ]
 
   listeners = [
     {
@@ -84,7 +84,7 @@ module "main_autoscaling" {
   min_size                  = var.asg_min
   max_size                  = var.asg_max
   vpc_zone_identifier       = module.main_vpc.public_subnets
-  target_group_arns         = [module.main_alb.target_groups["ex-instance"].arn]
+  target_group_arns         = [module.main_alb.target_groups.arn]
   security_groups           = [module.main_sg.security_group_id]
   instance_type             = var.instance_type
   image_id                  = data.aws_ami.app_ami.id
