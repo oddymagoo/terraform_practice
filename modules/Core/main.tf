@@ -71,7 +71,7 @@ module "main_alb" {
     }
   ]
 
-  tags = "main"
+  tags = var.environment.tags
 }
 
 module "main_autoscaling" {

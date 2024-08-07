@@ -4,11 +4,7 @@ module "Env_A" {
   environment = {
     name = "Env_A"
     network_prefix = "10.1"
-  }
-
-
-  tags = {
-    Name = "Env_A"
+    tags = "Env_A"
   }
 
 }
