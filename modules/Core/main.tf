@@ -56,7 +56,7 @@ module "main_alb" {
 
   target_groups = [
     {
-      name_prefix = "${var.environment.name}-"
+      name_prefix = "${var.environment.name}"
       protocol    = "HTTP"
       port        = 80
       target_type = "instance"
@@ -88,4 +88,8 @@ module "main_autoscaling" {
   security_groups           = [module.main_sg.security_group_id]
   instance_type             = var.instance_type
   image_id                  = data.aws_ami.app_ami.id
+   
+  tags = {
+    Environment = var.environment.name
+  }
 }
