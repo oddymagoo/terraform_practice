@@ -47,29 +47,29 @@ module "main_alb" {
   source  = "terraform-aws-modules/alb/aws"
   #version = "~> 6.0"
 
-  name               = "main-alb"
+  name               = "${var.environment.name}-alb"
   load_balancer_type = "application"
 
   vpc_id          = module.main_vpc.vpc_id
   subnets         = module.main_vpc.public_subnets
   security_groups = [module.main_sg.security_group_id]
 
-  target_groups = [
+  target_groups = {
     {
-      name_prefix = "${var.environment.name}"
+      name_prefix = "${var.environment.name}-"
       protocol    = "HTTP"
       port        = 80
       target_type = "instance"
     }
-  ]
+  }
 
-  listeners = [
+  listeners = {
     {
       port               = 80
       protocol           = "HTTP"
-      #target_group_index = 0
+      target_group_index = 0
     }
-  ]
+  }
 
   tags = {
     Environment = var.environment.name
@@ -84,7 +84,7 @@ module "main_autoscaling" {
   min_size                  = var.asg_min
   max_size                  = var.asg_max
   vpc_zone_identifier       = module.main_vpc.public_subnets
-  target_group_arns         = module.main_alb.arn.id
+  target_group_arns         = module.main_alb.target_group_arns
   security_groups           = [module.main_sg.security_group_id]
   instance_type             = var.instance_type
   image_id                  = data.aws_ami.app_ami.id
