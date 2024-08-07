@@ -71,7 +71,7 @@ module "main_alb" {
     }
   ]
 
-  tags = var.environment.tags
+  tags = {var.environment.tags}
 }
 
 module "main_autoscaling" {
@@ -79,11 +79,11 @@ module "main_autoscaling" {
   #version = "6.5.2"
   
   name = "main-asg"
-  min_size                  = var.environment.asg_min
-  max_size                  = var.environment.asg_max
-  vpc_zone_identifier       = var.module.main_vpc.public_subnets
+  min_size                  = var.asg_min
+  max_size                  = var.asg_max
+  vpc_zone_identifier       = module.main_vpc.public_subnets
   target_group_arns         = module.main_alb.target_group_arns
   security_groups           = [module.main_sg.security_group_id]
   instance_type             = var.instance_type
-  image_id                  = data.aws_ami.id
+  image_id                  = data.aws_ami.app_ami.id
 }
