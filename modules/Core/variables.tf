@@ -39,5 +39,3 @@ variable "asg_max" {
     description = "Maximum instance count for ASG"
     default = 2
 }
-
-}
