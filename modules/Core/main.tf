@@ -56,7 +56,7 @@ module "main_alb" {
 
   target_groups = [
     {
-      name_prefix = "$(var.environment.name)-"
+      name_prefix = "${var.environment.name}-"
       protocol    = "HTTP"
       port        = 80
       target_type = "instance"
